@@ -1,31 +1,60 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!--
-   Licensed to the Apache Software Foundation (ASF) under one
-   or more contributor license agreements.  See the NOTICE file
-   distributed with this work for additional information
-   regarding copyright ownership.  The ASF licenses this file
-   to you under the Apache License, Version 2.0 (the
-   "License"); you may not use this file except in compliance
-   with the License.  You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing,
-   software distributed under the License is distributed on an
-   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-   KIND, either express or implied.  See the License for the
-   specific language governing permissions and limitations
-   under the License.    
--->
+<!DOCTYPE ivy-module [
+	<!ENTITY vaadin.version "7.5.6">
+]>
 <ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
-    <info
-        organisation="whoony"
-        module="stuff"
-        status="integration">
+	<info
+	    organisation="whoony"
+	    module="stuff"
+	    status="integration">
 	</info>
 	
-	<dependencies>
+	<configurations>
+		<!-- The default configuration, which should be deployed to the server -->
+		<conf name="default" />
+		<!-- A configuration only needed when compiling the widget set. Should 
+			not be deployed to the server -->
+		<conf name="widgetset-compile" />
+		<!-- A configuration used in compilation of server side classes only.
+			Should be deployed to the server -->
+		<conf name="nodeploy" />
+	</configurations>
+	<dependencies defaultconf="default" defaultconfmapping="default->default">
+		<!-- The core server part of Vaadin -->
+		<dependency org="com.vaadin" name="vaadin-server" rev="&vaadin.version;" />
+		
+		<!-- Vaadin themes -->
+		<dependency org="com.vaadin" name="vaadin-themes" rev="&vaadin.version;" />
+		
+		<!-- Compiler for custom widget sets. Should not be deployed -->
+		<dependency org="com.vaadin" name="vaadin-client-compiler" rev="&vaadin.version;" conf="widgetset-compile->default" />
+		
+		<dependency org="com.vaadin.addon" name="vaadin-charts" rev="2.0.0" />
+		<dependency org="org.vaadin.addons" name="googleanalyticstracker" rev="2.1.0"/>
+		 
+		<dependency org="org.vaadin.addons" name="melodion" rev="1.0.0" />			
+		<!-- <dependency org="com.lexaden.components" name="breadcrumb" rev="1.7.3" /> -->
+		<dependency org="org.vaadin.addons" name="animator" rev="1.7.3" />
+		<dependency org="com.vaadin.addon" name="jpacontainer" rev="3.1.1" />
+		<dependency org="org.vaadin.addons" name="filteringtable" rev="0.9.3.v7" />
+		<dependency org="org.vaadin.addons" name="depot" rev="0.3.0" />
+		<dependency org="org.vaadin.addons" name="pagingcomponent" rev="0.9.5" />
+		<dependency org="org.vaadin.addons" name="imagescaler" rev="2.0.0" />
+		<dependency org="org.vaadin.addons" name="ckeditor-wrapper-for-vaadin" rev="7.9.1" />
+		<dependency org="org.vaadin.addons" name="loginform" rev="0.3.3" />
+		<!--<dependency org="com.lexaden.components" name="grid" rev="1.8.1" />-->
+		<dependency org="de.steinwedel.vaadin.addon" name="messagebox" rev="2.0.6" />
+		<dependency org="org.hibernate" name="hibernate-validator" rev="4.3.2.Final" />
+		<dependency org="org.vaadin.virkki" name="carousel" rev="0.5.2" />
+		<dependency org="com.google.guava" name="guava" rev="18.0"/>
+		<dependency org="com.google.guava" name="guava-gwt" rev="18.0"/>
+		<!--<dependency org="org.vaadin.addons" name="canvas"  rev="2.1" /> -->
+		<dependency org="org.vaadin.addons" name="pdfexport"  rev="1.0.1" />
+		<dependency org="org.vaadin" name="diagram-builder"  rev="1.1" />
+		<dependency org="org.vaadin.addon" name="confirmdialog" rev="2.0.5" />
+		<!--<dependency org="Ikarus" name="IkarusWidget"  rev="1.0.9" /> -->
+		<dependency org="org.json" name="json" rev="20131018" />
 		<dependency org="org.hibernate" name="hibernate-core" rev="5.0.1.Final"/>
 	</dependencies>
 </ivy-module>

@@ -56,5 +56,9 @@
 		<!--<dependency org="Ikarus" name="IkarusWidget"  rev="1.0.9" /> -->
 		<dependency org="org.json" name="json" rev="20131018" />
 		<dependency org="org.hibernate" name="hibernate-core" rev="5.0.1.Final"/>
+		<dependency org="log4j" name="log4j" rev="1.2.17"/>
+		<dependency org="mysql" name="mysql-connector-java" rev="5.0.8"/>
+		<dependency org="c3p0" name="c3p0" rev="0.9.1.2"/>
+		
 	</dependencies>
 </ivy-module>

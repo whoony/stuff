@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-2-9 9:00:21 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.stuff.bean.DailyReport">
+		<id name="id" type="java.lang.Long">
+			<column name="dailyreport_id" />
+			<generator class="native" />
+		</id>
+		<property name="principalId" type="java.lang.Long"/>
+		<property name="uploadedName" type="java.lang.String"/>
+		<property name="generatedName" type="java.lang.String"/>
+		<property name="savedPath" type="java.lang.String"/>
+		<property name="mimeType" type="java.lang.String"/>
+		<property name="createTime" type="java.util.Date"/>
+	</class>
+</hibernate-mapping>

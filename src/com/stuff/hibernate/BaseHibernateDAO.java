@@ -91,10 +91,15 @@ public abstract class BaseHibernateDAO<T>{
 	}
 
 	public List<T> queryListByProperty(String prop,	String operator, Object value) {
-		QueryBuilder qb = new QueryBuilder(getEntityClazz());
+		QueryBuilder qb = getQueryBuilder();
 		qb.addPropertyClause(PropertyClause.valueOf(prop, operator, value));
 		return qb.getList();
 	}
 
 	protected abstract Class<T> getEntityClazz();
+	
+	public QueryBuilder getQueryBuilder()
+	{
+		return new QueryBuilder(getEntityClazz());
+	}
 }

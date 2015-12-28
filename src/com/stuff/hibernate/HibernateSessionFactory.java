@@ -2,9 +2,9 @@ package com.stuff.hibernate;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
 /**
  * Configures and provides access to Hibernate sessions, tied to the
@@ -30,7 +30,7 @@ public class HibernateSessionFactory {
 	static {
     	try {
 			configuration.configure();
-			serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+			serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 		} catch (Exception e) {
 			System.err.println("%%%% Error Creating SessionFactory %%%%");
@@ -69,7 +69,7 @@ public class HibernateSessionFactory {
 	public static void rebuildSessionFactory() {
 		try {
 			configuration.configure();
-			serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+			serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 		} catch (Exception e) {
 			System.err.println("%%%% Error Creating SessionFactory %%%%");

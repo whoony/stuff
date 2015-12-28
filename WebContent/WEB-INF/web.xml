@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>stuff</display-name>
+	<display-name>stuff</display-name>
  	
-  <context-param>
-    <description>Admin production mode</description>
-    <param-name>productionMode</param-name>
-    <param-value>false</param-value>
-  </context-param> 
+	<context-param>
+	  <description>Admin production mode</description>
+	  <param-name>productionMode</param-name>
+	  <param-value>false</param-value>
+	</context-param> 
   
 	<context-param>
 		<description>Vaadin production mode</description>
@@ -14,7 +14,7 @@
 		<param-value>${productionMode}</param-value>
 	</context-param>
 	<servlet>
-		<servlet-name>QuickTicketsDashboard</servlet-name>
+		<servlet-name>DashboardServlet</servlet-name>
 		<servlet-class>com.stuff.dashboard.DashboardServlet</servlet-class>
 		<init-param>
 			<param-name>UI</param-name>
@@ -22,8 +22,12 @@
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>QuickTicketsDashboard</servlet-name>
+		<servlet-name>DashboardServlet</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
+
+	<listener>
+		<listener-class>com.stuff.schedule.ScheduledTasksListener</listener-class>
+	</listener>
 </web-app>

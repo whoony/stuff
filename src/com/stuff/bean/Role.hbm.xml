@@ -9,7 +9,7 @@
 			<generator class="identity" />
 		</id>
 		<property name="name" type="java.lang.String">
-			<column name="NAME" />
+			<column name="role_name" />
 		</property>
 		<set name="funcs" table="role_funcs" inverse="false" cascade="save-update" lazy="false">
 			<key column="role_id" />

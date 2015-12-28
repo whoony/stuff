@@ -9,13 +9,13 @@
 			<generator class="native" />
 		</id>
 		<property name="name" type="java.lang.String">
-			<column name="principal_name" />
+			<column name="principal_name" not-null="true" default="''"/>
 		</property>
 		<property name="username" type="java.lang.String">
-			<column name="principal_username" />
+			<column name="principal_username" not-null="true" default="''"/>
 		</property>
 		<property name="password" type="java.lang.String">
-			<column name="principal_password" />
+			<column name="principal_password" not-null="true" default="''"/>
 		</property>
 		<set name="roles" table="principal_roles" inverse="false" cascade="save-update"	lazy="false">
 			<key column="principal_id" />

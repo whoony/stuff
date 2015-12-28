@@ -8,11 +8,23 @@
 			<column name="dailyreport_id" />
 			<generator class="native" />
 		</id>
-		<property name="principalId" type="java.lang.Long"/>
-		<property name="uploadedName" type="java.lang.String"/>
-		<property name="generatedName" type="java.lang.String"/>
-		<property name="savedPath" type="java.lang.String"/>
-		<property name="mimeType" type="java.lang.String"/>
-		<property name="createTime" type="java.util.Date"/>
+		<property name="principalId" type="java.lang.Long">
+			<column name="principalId" not-null="true" default="-1"/>
+		</property>
+		<property name="uploadedName" type="java.lang.String">
+			<column name="uploadedName" not-null="true" default="''"/>
+		</property>
+		<property name="generatedName" type="java.lang.String">
+			<column name="generatedName" not-null="true" default="''"/>
+		</property>
+		<property name="savedPath" type="java.lang.String">
+			<column name="savedPath" not-null="true" default="''"/>
+		</property>
+		<property name="mimeType" type="java.lang.String">
+			<column name="mimeType" not-null="true" default="''"/>
+		</property>
+		<property name="createTime" type="java.util.Date">
+			<column name="createTime" not-null="true" default="'1000-1-1'"/>
+		</property>
 	</class>
 </hibernate-mapping>

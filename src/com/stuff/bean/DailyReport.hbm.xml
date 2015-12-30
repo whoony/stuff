@@ -26,5 +26,8 @@
 		<property name="createTime" type="java.util.Date">
 			<column name="createTime" not-null="true" default="'1000-1-1'"/>
 		</property>
+		<property name="chooseTime" type="java.util.Date">
+			<column name="chooseTime" not-null="true" default="'1000-1-1'"/>
+		</property>
 	</class>
 </hibernate-mapping>

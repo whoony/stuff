@@ -12,6 +12,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Responsive;
 import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -44,7 +45,8 @@ public final class DashboardView extends Panel implements View{
 
         buildTopButtonBar();
 		root.addComponent(new Label("<hr>", ContentMode.HTML)); //$NON-NLS-1$
-		
+		root.addComponent(detailPanel);
+		root.setExpandRatio(detailPanel, 1);
     }
     
     
@@ -84,8 +86,9 @@ public final class DashboardView extends Panel implements View{
 			
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd EEEE");
 		String dateString = dateFormatter.format(new Date());
-		Label today = new Label("<h2>"+dateString+"</h2>", ContentMode.HTML);
+		Label today = new Label("<h3>"+dateString+"</h3>", ContentMode.HTML);
 		buttons.addComponent(today);
+		buttons.setComponentAlignment(today, Alignment.MIDDLE_LEFT);
 	}
 	
     

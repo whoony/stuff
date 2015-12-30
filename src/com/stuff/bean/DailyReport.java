@@ -12,6 +12,7 @@ public class DailyReport implements Serializable{
 	private String savedPath;
 	private String mimeType;
 	private Date createTime;
+	private Date chooseTime;
 	
 	public Long getId() {
 		return id;
@@ -55,6 +56,10 @@ public class DailyReport implements Serializable{
 	public void setGeneratedName(String generatedName) {
 		this.generatedName = generatedName;
 	}
-	
-	
+	public Date getChooseTime() {
+		return chooseTime;
+	}
+	public void setChooseTime(Date chooseTime) {
+		this.chooseTime = chooseTime;
+	}
 }

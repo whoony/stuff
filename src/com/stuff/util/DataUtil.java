@@ -11,6 +11,7 @@ public class DataUtil {
 	private static SimpleDateFormat dateFormatterForCompare = new SimpleDateFormat("yyyy-MM-dd");
 	private static SimpleDateFormat dateFormatterForDisplay = new SimpleDateFormat("yyyy-MM-dd");
 	private static SimpleDateFormat timeFormatterForDisplay = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static SimpleDateFormat onlyTimeFormatter = new SimpleDateFormat("HH:mm");
 	
 	public static int toInt(byte[] bytes){
 		switch(bytes.length){
@@ -190,6 +191,11 @@ public class DataUtil {
 	public static String timeToStringForDisplay(Date date)
 	{
 		return timeFormatterForDisplay.format(date);
+	}
+	
+	public static String onlyTimeForDisplay(Date date)
+	{
+		return onlyTimeFormatter.format(date);
 	}
 	
 	public static Date timeToDate(Date date)

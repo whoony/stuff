@@ -27,7 +27,7 @@ public abstract class BaseHibernateDAO<T>{
 	public void rollback() {
 		try {
 			getSession().getTransaction().rollback();
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			log.error("Rollback error!");
 			log.error(ex.toString());
 		}
@@ -42,7 +42,7 @@ public abstract class BaseHibernateDAO<T>{
 			session.getTransaction().commit();
 			log.debug("save successful");
 			return entity;
-		} catch (RuntimeException re) {
+		} catch (Throwable re) {
 			log.error("save failed", re);
 			rollback();
 			return null;
@@ -61,7 +61,7 @@ public abstract class BaseHibernateDAO<T>{
 			session.getTransaction().commit();
 			log.debug("delete successful");
 			return true;
-		} catch (RuntimeException re) {
+		} catch (Throwable re) {
 			log.error("delete failed", re);
 			rollback();
 			return false;
@@ -83,7 +83,7 @@ public abstract class BaseHibernateDAO<T>{
 			session.getTransaction().commit();
 			log.debug("merge successful");
 			return detachedInstance;
-		} catch (RuntimeException re) {
+		} catch (Throwable re) {
 			log.error("merge failed", re);
 			rollback();
 			return null;

@@ -1,14 +1,18 @@
 package com.stuff.dashboard.view.report;
 
 import com.stuff.bean.DailyReport;
+import com.stuff.component.util.DialogUtil;
 import com.stuff.controller.DailyReportUtil;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.Align;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 public class MyReportUI extends VerticalLayout
@@ -36,6 +40,19 @@ public class MyReportUI extends VerticalLayout
 		tableCon.addComponent(table);
 		
 		Button add = new Button("上传");
+		add.addClickListener(new ClickListener(){
+			@Override
+			public void buttonClick(ClickEvent event) {
+				UploadDialog uploadDialog = new UploadDialog();
+				uploadDialog.setCaption("上传日报");
+				uploadDialog.setWidth("400px");
+				uploadDialog.setHeight("300px");
+				uploadDialog.setModal(true);
+				
+				UI.getCurrent().addWindow(uploadDialog);
+				uploadDialog.bringToFront();
+			}
+		});
 		addComponent(add);
 		setComponentAlignment(add, Alignment.BOTTOM_LEFT);
 		Label info = new Label("<ul><li><h4>上传成功后如需修改，请删除后重新上传</h4></li>"

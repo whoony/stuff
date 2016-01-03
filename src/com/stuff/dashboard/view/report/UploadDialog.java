@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import com.stuff.bean.DailyReport;
 import com.stuff.component.util.DialogUtil;
@@ -21,6 +23,9 @@ import com.vaadin.ui.Window;
 
 public class UploadDialog extends Window implements Receiver, SucceededListener
 {
+	private static final SimpleDateFormat pathFormatter = new SimpleDateFormat("/yyyy/MM/");
+	private static final SimpleDateFormat nameFormatter = new SimpleDateFormat("yyyy-MM-dd HH-mm");
+	
 	private VerticalLayout root = new VerticalLayout();
 	private File file;
 	private DailyReport report;
@@ -78,13 +83,17 @@ public class UploadDialog extends Window implements Receiver, SucceededListener
 		
 		FileOutputStream fos = null;
 		String uploadBase = Config.getInstance().get("upload.dir");
-		String path = uploadBase + "/12/16";
+		String dateString = pathFormatter.format(new Date());
+		String path = uploadBase + dateString + DashboardUI.getCurrentUser().getUsername();
+		String ext = filename.substring(filename.lastIndexOf("."));
+		String filenameUUID = UUID.randomUUID().toString() + ext;
+		String filePath = path + "/" + filenameUUID;
 		File dic = new File(path);
 		if(!dic.exists())
 		{
 			dic.mkdirs();
 		}
-        file = new File("path" + filename);  
+        file = new File(filePath);  
         
         try {
 			fos = new FileOutputStream(file);
@@ -99,8 +108,10 @@ public class UploadDialog extends Window implements Receiver, SucceededListener
         report.setMimeType(mimeType);
         report.setCreateTime(new Date());
         report.setChooseTime(new Date());
-        report.setGeneratedName("generename");
-        report.setSavedPath("/dd/dd");
+        
+        String nameFormat = nameFormatter.format(report.getChooseTime());
+		report.setGeneratedName(DashboardUI.getCurrentUser().getName() + " " + nameFormat + ext);
+        report.setSavedPath(filePath);
         report.setPrincipalId(DashboardUI.getCurrentUser().getId());
         
         return fos; 

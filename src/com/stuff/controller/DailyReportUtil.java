@@ -1,5 +1,6 @@
 package com.stuff.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import com.stuff.util.DataUtil;
 public class DailyReportUtil 
 {
 	public static DailyReportDao dao = DailyReportDao.getInstance();
-	
+	public static SimpleDateFormat monthFormat = new SimpleDateFormat("yyyy-MM");
 	
 	public static boolean saveReport(DailyReport report)
 	{
@@ -54,6 +55,31 @@ public class DailyReportUtil
 		
 		
 		return null;
+	}
+
+	/**
+	 * @param report
+	 */
+	public static boolean deleteFile(DailyReport report)
+	{
+		return dao.deleteEntity(report);
+	}
+
+
+	/**
+	 * Get Owner's viewed Month's reports
+	 */
+	public static List<DailyReport> getMonthReport(Date viewedMonth)
+	{
+		QueryBuilder qb = dao.getQueryBuilder();
+		qb.addPropertyClause(PropertyClause.valueOf("principalId", "=", DashboardUI.getCurrentUser().getId()));
+		PropertyClause dateProp = PropertyClause.valueOf("DATE_FORMAT(createTime,'%Y-%m')", "=", monthFormat.format(viewedMonth));
+		dateProp.setNeedAlias(false);
+		qb.addPropertyClause(dateProp);
+		qb.addPropertyClause(PropertyClause.valueOf("locked", "=", true));
+		
+		List<DailyReport> list = qb.getList();
+		return list;
 	}
 	
 }

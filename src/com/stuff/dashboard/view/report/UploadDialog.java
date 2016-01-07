@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -14,6 +12,7 @@ import java.util.UUID;
 
 import com.stuff.bean.DailyReport;
 import com.stuff.component.util.DialogUtil;
+import com.stuff.component.util.DownloadUtil;
 import com.stuff.controller.DailyReportUtil;
 import com.stuff.dashboard.DashboardUI;
 import com.stuff.util.Config;
@@ -33,6 +32,7 @@ import com.vaadin.ui.Window;
 
 public class UploadDialog extends Window implements Receiver, SucceededListener, StartedListener, FailedListener
 {
+	private static final long serialVersionUID = -2356504267723663885L;
 	private static final SimpleDateFormat pathFormatter = new SimpleDateFormat("/yyyy/MM/");
 	private static final SimpleDateFormat nameFormatter = new SimpleDateFormat("yyyy-MM-dd HH-mm");
 	
@@ -42,6 +42,7 @@ public class UploadDialog extends Window implements Receiver, SucceededListener,
 	private Upload upload;
 	private DateField date;
 	private boolean uploaded;
+	private FileOutputStream fos;
 	
 	public UploadDialog()
 	{
@@ -79,7 +80,6 @@ public class UploadDialog extends Window implements Receiver, SucceededListener,
 	@Override
 	public void uploadSucceeded(SucceededEvent event) 
 	{
-		//TODO: save dailyreport
 		boolean saved = DailyReportUtil.saveReport(report);
 		if(saved)
 		{
@@ -120,19 +120,17 @@ public class UploadDialog extends Window implements Receiver, SucceededListener,
 			return new ByteArrayOutputStream();
 		}
 		
-		FileOutputStream fos = null;
 		String uploadBase = Config.getInstance().get("upload.dir");
-		String dateString = pathFormatter.format(new Date());
-		String path = uploadBase + dateString + DashboardUI.getCurrentUser().getUsername();
-		String ext = filename.substring(filename.lastIndexOf("."));
-		String filenameUUID = UUID.randomUUID().toString() + ext;
-		String filePath = path + "/" + filenameUUID;
-		File dic = new File(path);
+		String path = pathFormatter.format(new Date()) + DashboardUI.getCurrentUser().getUsername();
+		File dic = new File(uploadBase + path);
 		if(!dic.exists())
 		{
 			dic.mkdirs();
 		}
-        file = new File(filePath);  
+		
+		String filenameUUID = UUID.randomUUID().toString();
+		String filePath = path + "/" + filenameUUID;
+        file = new File(uploadBase + filePath);  
         
         try {
 			fos = new FileOutputStream(file);
@@ -148,19 +146,15 @@ public class UploadDialog extends Window implements Receiver, SucceededListener,
         report.setCreateTime(new Date());
         report.setChooseTime(uploadTime);
         
+        String ext = filename.substring(filename.lastIndexOf("."));
         String nameFormat = nameFormatter.format(report.getChooseTime());
 		report.setGeneratedName(DashboardUI.getCurrentUser().getName() + " " + nameFormat + ext);
         report.setSavedPath(filePath);
         report.setPrincipalId(DashboardUI.getCurrentUser().getId());
         
-        try {
-			String encodedFilename = URLEncoder.encode(report.getUploadedName(), "utf-8");
-			report.setUploadedName(encodedFilename.replace("+","%20"));
-			
-			String encodedGenname = URLEncoder.encode(report.getGeneratedName(), "utf-8");
-			report.setGeneratedName(encodedGenname.replace("+","%20"));
-		} catch (UnsupportedEncodingException e) {
-		}
+        report.setUploadedName(DownloadUtil.encodeFilename(report.getUploadedName()));
+        report.setGeneratedName(DownloadUtil.encodeFilename(report.getGeneratedName()));
+        
         return fos; 
 	}
 

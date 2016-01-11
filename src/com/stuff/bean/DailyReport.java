@@ -13,6 +13,7 @@ public class DailyReport implements Serializable{
 	private String mimeType;
 	private Date createTime;
 	private Date chooseTime;
+	private boolean locked;
 	
 	public Long getId() {
 		return id;
@@ -61,5 +62,11 @@ public class DailyReport implements Serializable{
 	}
 	public void setChooseTime(Date chooseTime) {
 		this.chooseTime = chooseTime;
+	}
+	public boolean isLocked() {
+		return locked;
+	}
+	public void setLocked(boolean locked) {
+		this.locked = locked;
 	}
 }

@@ -90,7 +90,7 @@ public final class DashboardMenu extends CustomComponent {
         settings.addStyleName("user-menu");
         final Principal user = DashboardUI.getCurrentUser();
         
-        settingsItem = settings.addItem("", new ThemeResource(
+        settingsItem = settings.addItem(user.getName(), new ThemeResource(
                 "img/profile-pic-300px.jpg"), null);
 
         settingsItem.addItem("Preferences", new Command() {

@@ -25,7 +25,8 @@ public class InitialDataTask implements Runnable{
 	{
 		rolesMap = new HashMap<String, List<PrivilegeConstant>>();
 		rolesMap.put("system_admin", Arrays.asList(PrivilegeConstant.ALL));
-		rolesMap.put("stuff", Arrays.asList(PrivilegeConstant.MENU_DASHBOARD));
+		rolesMap.put("stuff", 
+				Arrays.asList(PrivilegeConstant.MENU_DASHBOARD, PrivilegeConstant.TAB_TODAY_REPORT, PrivilegeConstant.TAB_HISTORY_REPORTS));
 		
 		nameMap = new HashMap<String, String>();
 		nameMap.put("jiashengjun", "贾胜军");

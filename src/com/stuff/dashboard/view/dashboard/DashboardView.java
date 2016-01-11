@@ -61,9 +61,9 @@ public final class DashboardView extends Panel implements View{
 		myReport = new Button("今日日报");
 		historyReport = new Button("历史日报");
 
-		if(SecurityDataUtil.isAuthorize(PrivilegeConstant.MENU_DASHBOARD))
+		if(SecurityDataUtil.isAuthorize(PrivilegeConstant.TAB_TODAY_REPORT))
 			buttons.addComponent(myReport);
-		if(SecurityDataUtil.isAuthorize(PrivilegeConstant.MENU_REPORTS))
+		if(SecurityDataUtil.isAuthorize(PrivilegeConstant.TAB_HISTORY_REPORTS))
 			buttons.addComponent(historyReport);
 		
 		myReport.addClickListener(new ClickListener(){

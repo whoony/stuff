@@ -29,5 +29,6 @@
 		<property name="chooseTime" type="java.util.Date">
 			<column name="chooseTime" not-null="true" default="'1000-1-1'"/>
 		</property>
+		<property name="locked" type="boolean"/>
 	</class>
 </hibernate-mapping>
